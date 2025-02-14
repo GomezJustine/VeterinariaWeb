@@ -1,0 +1,278 @@
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('../img/banner.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #000;
+}
+
+/* Barra de Navegación Fija */
+header {
+    background-color: #003366;
+    padding: 15px 20px;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+header:hover {
+    background-color: #004080;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-header {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+/* Animación para el logo */
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    position: relative;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.nav-links a:hover {
+    color: #00bfff;
+    transform: scale(1.1);
+    text-shadow: 0 0 5px #00bfff;
+}
+
+/* Botones de Autenticación */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons a {
+    color: #003366;
+    background-color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.auth-buttons a:hover {
+    background-color: #00bfff;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+}
+
+/* Contenedor de Gestión de Productos */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 120px;
+    animation: fadeIn 1s ease-in-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.product-management-container {
+    background-color: #003366;
+    color: #fff;
+    padding: 40px 60px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    opacity: 0.95;
+    transform: scale(0.95);
+    animation: scaleUp 0.5s ease forwards;
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.95); }
+    to { transform: scale(1); }
+}
+
+.product-management-container h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #fff;
+    animation: fadeInTitle 1s ease forwards;
+}
+
+@keyframes fadeInTitle {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.product-management-container p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    color: #a3d900;
+    animation: fadeInTitle 1s 0.2s ease forwards;
+}
+
+/* Botones de Acción */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.button {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    background-color: #00bfff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #007acc;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+}
+
+.auth-section {
+    text-align: right; /* Alinea al lado derecho */
+    margin-right: 20px; /* Espaciado con los bordes */
+}
+
+.welcome-message {
+    font-size: 1rem;
+    color: #fff; /* Ajusta el color según el diseño */
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+    background-color: #003366;
+    border-radius: 5px;
+}
+
+.logout-btn {
+    color: #003366; /* Texto blanco */
+    background-color: #ffffff;/* Fondo transparente */
+    padding: 6px 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: none; /* No forzar texto en mayúsculas */
+    font-size: 1.0rem; /* Texto más pequeño */
+    text-decoration: none; /* Quitar subrayado */
+    cursor: pointer; /* Cambiar cursor al pasar */
+    transition: all 0.3s ease; /* Transición para todos los cambios */
+}
+
+/* Efectos al pasar el cursor */
+.logout-btn:hover {
+    background-color: #00bfff; /* Fondo azul claro */
+    color: #ffffff; /* Texto blanco */
+    transform: scale(1.1); /* Aumentar tamaño ligeramente */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .auth-buttons {
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .product-management-container {
+        padding: 30px 20px;
+        max-width: 90%;
+    }
+
+    .product-management-container h1 {
+        font-size: 1.5em;
+    }
+
+    .button {
+        font-size: 1em;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-header {
+        width: 50px;
+    }
+
+    .product-management-container {
+        padding: 20px 10px;
+    }
+
+    .product-management-container h1 {
+        font-size: 1.3em;
+    }
+
+    .button {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .auth-buttons a {
+        padding: 8px;
+    }
+}

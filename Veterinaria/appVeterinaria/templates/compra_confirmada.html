@@ -1,0 +1,91 @@
+{% load static %}
+{% load base64_filters %}
+{% load custom_filters %} <!-- Esto ahora funcionará -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra Confirmada - Centro Veterinario JG PET</title>
+    <link rel="stylesheet" href="{% static 'css/compra_confirmada.css' %}">
+</head>
+<body>
+    <!-- Encabezado y Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            <!-- Logo -->   
+            {% if logo %}
+                <img src="{{ logo }}" alt="Logo Centro Veterinario" class="logo">
+            {% else %}
+                <img src="{% static 'img/default-logo.png' %}" alt="Logo Centro Veterinario" class="logo">
+            {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'iniciousuario' %}">Inicio</a></li>
+                    <li><a href="{% url 'listar_productos_cliente' %}">Productos</a></li>
+                    <li><a href="{% url 'agendar_cita' %}">Agendar cita</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a>
+                </ul>
+            </nav>
+            <!-- Botones o mensaje de bienvenida -->
+            <div class="auth-section">
+                {% if nombre_usuario %}
+                    <!-- Mostrar nombre del usuario autenticado -->
+                    <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                {% else %}
+                    <!-- Mostrar botones de autenticación -->
+                    <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                    <a href="{% url 'register' %}" class="btn">Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Compra Realizada -->
+    <main class="container my-5">
+        <h2>¡Compra Confirmada!</h2>
+        <p>Has comprado <strong>{{ cantidad }}</strong> unidades de <strong>{{ producto.nombre }}</strong>.</p>
+        <p><strong>Total a pagar:</strong> ${{ total_venta }}</p>
+
+        <!-- Información adicional de la factura -->
+        {% if factura %}
+            <h3>Detalles de la Factura</h3>
+            <p><strong>Número de Factura:</strong> {{ factura.id_fact }}</p>
+            <p><strong>Fecha de Venta:</strong> {{ factura.fecha_venta }}</p>
+            <h4>Detalles del Producto:</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detalle in detalles_factura %}
+                        <tr>
+                            <td>{{ detalle.id_producto.nombre }}</td>
+                            <td>{{ detalle.cant }}</td>
+                            <td>${{ detalle.val_venta }}</td>
+                            <td>${{ detalle.cant|multiply:detalle.val_venta }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay información adicional de la factura disponible.</p>
+        {% endif %}
+
+        <a href="{% url 'listar_productos_cliente' %}" class="btn btn-primary mt-3">Regresar a Productos</a>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer class="footer mt-5">
+        <p>&copy; 2024 Centro Veterinario JG PET. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
+

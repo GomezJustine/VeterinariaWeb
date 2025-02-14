@@ -1,0 +1,226 @@
+/* Reseteo básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+/* Encabezado */
+header {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #00bfff;
+}
+
+.auth-section {
+    text-align: right; /* Alinea al lado derecho */
+    margin-right: 20px; /* Espaciado con los bordes */
+}
+
+.welcome-message {
+    font-size: 1rem;
+    color: #fff; /* Ajusta el color según el diseño */
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+    background-color: #003366;
+    border-radius: 5px;
+}
+
+.logout-btn {
+    color: #003366; /* Texto blanco */
+    background-color: #ffffff;/* Fondo transparente */
+    padding: 6px 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: none; /* No forzar texto en mayúsculas */
+    font-size: 1.0rem; /* Texto más pequeño */
+    text-decoration: none; /* Quitar subrayado */
+    cursor: pointer; /* Cambiar cursor al pasar */
+    transition: all 0.3s ease; /* Transición para todos los cambios */
+}
+
+.logout-btn:hover {
+    background-color: #00bfff; /* Fondo azul claro */
+    color: #ffffff; /* Texto blanco */
+    transform: scale(1.1); /* Aumentar tamaño ligeramente */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Contenido principal */
+main.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+h3, h4 {
+    color: #003366;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Botón de regresar */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #003366;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #00bfff;
+    color: #fff;
+}
+
+/* Tabla de detalles de factura */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th, table td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #003366;
+    color: #fff;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f0f4f8;
+}
+
+table tbody tr:hover {
+    background-color: #e8f5ff;
+}
+
+/* Pie de página */
+footer.footer {
+    background-color: #003366;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+footer p {
+    font-size: 0.9rem;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .auth-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    main.container {
+        padding: 15px;
+    }
+
+    table th, table td {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        width: 100px;
+    }
+
+    main.container {
+        padding: 10px;
+    }
+
+    table th, table td {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}

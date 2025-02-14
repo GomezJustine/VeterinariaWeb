@@ -1,0 +1,270 @@
+/* Reseteo básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    background-image: url('../img/banner.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Barra de Navegación Fija */
+header {
+    background-color: #003366;
+    padding: 15px 20px;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
+header:hover {
+    background-color: #004080;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Logo con Animación de Oscilación */
+.logo {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+    animation: swing 3s ease-in-out infinite;
+}
+
+@keyframes swing {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.nav-links a:hover {
+    color: #00bfff;
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.7);
+}
+
+/* Botones de autenticación */
+.auth-buttons a {
+    color: #003366;
+    background-color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.auth-buttons a:hover {
+    background-color: #00bfff;
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.7);
+}
+
+/* Sección de registro */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 100px;
+}
+
+.register-section {
+    background-color: rgba(0, 51, 102, 0.85);
+    color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.register-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form label {
+    font-size: 1em;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #a3d900;
+}
+
+.register-form input, 
+.register-form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+}
+
+.register-form input::placeholder {
+    color: #888;
+}
+
+.register-form select {
+    appearance: none;
+}
+
+.register-button {
+    background-color: #00bfff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s;
+}
+
+.register-button:hover {
+    background-color: #007acc;
+    transform: scale(1.05);
+}
+
+/* Fondo de la ventana emergente */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semi-transparente */
+    display: none; /* Oculto por defecto */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    z-index: 1001; /* Por encima de otros elementos */
+}
+
+/* Contenedor de la ventana emergente */
+.popup-content {
+    background-color: #003366;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Botón de la ventana emergente */
+.popup-content button {
+    background-color: #00bfff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.popup-content button:hover {
+    background-color: #007acc;
+}
+
+/* Responsividad */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 15px;
+    }
+    
+    .register-section {
+        padding: 30px;
+        max-width: 90%;
+    }
+
+    .register-section h2 {
+        font-size: 1.8em;
+    }
+
+    .register-button {
+        padding: 8px;
+        font-size: 1em;
+    }
+}
+
+/* Móviles y pantallas pequeñas */
+@media (max-width: 480px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo {
+        width: 60px;
+        margin-bottom: 10px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .register-section {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .register-section h2 {
+        font-size: 1.5em;
+    }
+
+    .register-button {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}

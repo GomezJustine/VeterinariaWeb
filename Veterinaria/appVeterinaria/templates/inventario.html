@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/inventario.css">
+    <title>Inventario - Centro Veterinario JSJB</title>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            <a href="inicio.html"><img src="../static/img/logo1.png" alt="Logo de la veterinaria" class="logo-header"></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="iniciousuario.html">Inicio</a></li>
+                    <li><a href="agendar_cita.html">Agendar cita</a></li>
+                    <li><a href="perfil.html">Perfil</a></li>
+                    <li><a href="blog.html">Nosotros</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="iniciousuario.html">Iniciar Sesión</a>
+                <a href="register.html">Registrarse</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main>
+        <!-- Barra de Categorías -->
+        <section class="categories">
+            <h2>Categorías</h2>
+            <div class="category-container">
+                <div class="category">
+                    <img src="../static/img/gato.png" alt="Gatos">
+                    <p>Gatos</p>
+                </div>
+                <div class="category">
+                    <img src="../static/img/perro.png" alt="Cachorros">
+                    <p>Cachorros</p>
+                </div>
+                <div class="category">
+                    <img src="../static/img/alimento.png" alt="Alimento">
+                    <p>Alimento</p>
+                </div>
+                <div class="category">
+                    <img src="../static/img/juguetes.png" alt="Juguetes">
+                    <p>Juguetes</p>
+                </div>
+                <div class="category">
+                    <img src="../static/img/correa.png" alt="Accesorios">
+                    <p>Accesorios</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos -->
+        <section class="product-list">
+            <h2>Productos</h2>
+            <div class="product-container">
+                <!-- Iterar sobre los productos activos -->
+                {% for producto in productos %}
+                <div class="product-card">
+                    <img src="data:image/png;base64,{{ producto.imagen|default:'' }}" alt="{{ producto.nombre }}">
+                    <h3>{{ producto.nombre }}</h3>
+                    <p class="price">${{ producto.vventa }}</p>
+                    <button class="buy-button">Comprar</button>
+                </div>
+                {% empty %}
+                <p>No hay productos disponibles.</p>
+                {% endfor %}
+            </div>
+        </section>
+        
+    </main>
+</body>
+</html>

@@ -1,0 +1,135 @@
+{% load base64_filters %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Centro Veterinario JG PET</title>
+    <link rel="stylesheet" href="{% static 'css/iniciousuario.css' %}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+</head>
+<body>
+    <!-- Encabezado y Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            <!-- Logo -->   
+            {% if logo %}
+                <img src="data:image/png;base64,{{ logo }}" alt="Logo Centro Veterinario" class="logo">
+            {% else %}
+                <img src="{% static 'img/default-logo.png' %}" alt="Logo Centro Veterinario" class="logo">
+            {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'iniciousuario' %}">Inicio</a></li>
+                    <li><a href="{% url 'listar_productos_cliente' %}">Productos</a></li>
+                    <li><a href="{% url 'agendar_cita' %}">Agendar cita</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a>
+                </ul>
+            </nav>
+            <!-- Botones o mensaje de bienvenida -->
+            <div class="auth-section">
+                {% if nombre_usuario %}
+                    <!-- Mostrar nombre del usuario autenticado -->
+                    <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                {% else %}
+                    <!-- Mostrar botones de autenticación -->
+                    <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                    <a href="{% url 'register' %}" class="btn">Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Barra de búsqueda -->
+        <div class="search-bar">
+            <input type="text" placeholder="¿Qué necesita tu mascota?">
+            <button>Buscar</button>
+        </div>
+    </header>
+
+    <!-- Banner principal -->
+    <section class="hero">
+        
+        {% if banners and banners|length > 0 %}
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    {% for image in banners %}
+                        <div class="swiper-slide">
+                            <img src="data:image/png;base64,{{ image }}" alt="Banner  {{ forloop.counter }}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- Controles de navegación -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <!-- Indicadores de paginación -->
+                <div class="swiper-pagination"></div>
+            </div>
+        {% else %}
+            <p>No se encontraron banners disponibles.</p>
+        {% endif %}
+        </div>
+    </section>
+
+
+     <!-- Pie de página -->
+     <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <!-- Logo del pie de página -->
+                {% if logo1 %}
+                    <img src="data:image/png;base64,{{ logo1 }}" alt="Logo Centro Veterinario JG PET" class="footer-logo-img">
+                {% else %}
+                    <img src="{% static 'img/default-logo-footer.png' %}" alt="Logo Centro Veterinario JG PET" class="footer-logo-img">
+                {% endif %}
+                
+                <!-- Texto dinámico debajo del logo -->
+                <p class="footer-description">{{ descripcion }}</p>
+            </div>
+
+            <!-- Menú -->
+            <div class="footer-section">
+                <h3>Menú</h3>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <!-- Información de Contacto -->
+            <div class="footer-section">
+                <h3>Información</h3>
+                <p><strong>Dirección:</strong> {{ direccion }}</p>
+                <p><strong>Teléfono:</strong> {{ telefono }}</p>
+                <p><strong>Email:</strong> {{ email }}</p>
+            </div>
+
+            <!-- Redes Sociales -->
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <div class="social-icons">
+                    <a href="#"><img src="{% static 'img/facebook.png' %}" alt="Facebook" class="social-icon-img"></a>
+                    <a href="#"><img src="{% static 'img/Instagram.png' %}" alt="Instagram" class="social-icon-img"></a>
+                    <a href="#"><img src="{% static 'img/Whatsapp.png' %}" alt="WhatsApp" class="social-icon-img"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Texto de Misión y Visión -->
+        <div class="footer-about">
+            <p><strong>Quiénes Somos:</strong> {{ descripcion }}</p>
+            <p>{{ texto_footer }}</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/swiper-config.js' %}"></script>
+</body>
+</html>
+

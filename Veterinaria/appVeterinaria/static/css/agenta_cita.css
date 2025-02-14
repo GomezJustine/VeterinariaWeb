@@ -1,0 +1,325 @@
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('../img/banner.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #000;
+}
+
+/* Barra de Navegación */
+header {
+    background-color: #003366;
+    padding: 15px 20px;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-header {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.nav-links a:hover {
+    color: #00bfff;
+    transform: scale(1.1);
+    text-shadow: 0 0 5px #00bfff;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons a {
+    color: #003366;
+    background-color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.auth-buttons a:hover {
+    background-color: #00bfff;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+}
+
+/* Contenedor del formulario */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 120px;
+    animation: fadeIn 0.7s ease-in-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-container {
+    background-color: #003366;
+    color: #fff;
+    padding: 40px 60px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    opacity: 0.95;
+    transform: scale(0.95);
+    animation: scaleUp 0.5s ease forwards;
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.95); }
+    to { transform: scale(1); }
+}
+
+.form-container h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #fff;
+    animation: fadeInTitle 1s ease forwards;
+}
+
+@keyframes fadeInTitle {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #a3d900;
+    font-size: 0.9em;
+}
+
+/* Campos de entrada con efecto de brillo */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+input:focus, select:focus {
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.7); /* Efecto de brillo */
+    outline: none;
+    transform: scale(1.02); /* Aumento leve en el tamaño */
+}
+
+/* Botón de enviar con animación */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #00bfff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #007acc;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Media Queries para Responsividad */
+
+#mensajeExito {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #003366;
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    text-align: center;
+}
+#mensajeExito button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .auth-buttons {
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    /* Ajustar el contenedor del formulario en pantallas más pequeñas */
+    .form-container {
+        padding: 30px 20px;
+    }
+
+    .form-container h1 {
+        font-size: 1.5em;
+    }
+
+    input, select, button {
+        font-size: 1em;
+    }
+}
+
+/* Campos de texto largo */
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+    transition: box-shadow 0.3s, transform 0.3s;
+    resize: none;
+}
+
+textarea:focus {
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.7); /* Efecto de brillo */
+    outline: none;
+    transform: scale(1.02); /* Aumento leve en el tamaño */
+}
+
+.auth-section {
+    text-align: right; /* Alinea al lado derecho */
+    margin-right: 20px; /* Espaciado con los bordes */
+}
+
+.welcome-message {
+    font-size: 1rem;
+    color: #fff; /* Ajusta el color según el diseño */
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+    background-color: #003366;
+    border-radius: 5px;
+}
+
+.logout-btn {
+    color: #003366; /* Texto blanco */
+    background-color: #ffffff;/* Fondo transparente */
+    padding: 6px 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: none; /* No forzar texto en mayúsculas */
+    font-size: 1.0rem; /* Texto más pequeño */
+    text-decoration: none; /* Quitar subrayado */
+    cursor: pointer; /* Cambiar cursor al pasar */
+    transition: all 0.3s ease; /* Transición para todos los cambios */
+}
+
+.logout-btn:hover {
+    background-color: #00bfff; /* Fondo azul claro */
+    color: #ffffff; /* Texto blanco */
+    transform: scale(1.1); /* Aumentar tamaño ligeramente */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+@media (max-width: 480px) {
+    /* Ajustes adicionales para pantallas pequeñas como smartphones */
+    .logo-header {
+        width: 50px;
+    }
+
+    .form-container {
+        padding: 20px 10px;
+    }
+
+    .form-container h1 {
+        font-size: 1.3em;
+    }
+
+    input, select, button {
+        font-size: 0.9em;
+    }
+
+    .auth-buttons a {
+        padding: 8px;
+    }
+}

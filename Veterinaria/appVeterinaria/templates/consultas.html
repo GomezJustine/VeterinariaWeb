@@ -1,0 +1,111 @@
+{% load static %}
+{% load base64_filters %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/administrador.css' %}">
+    <link rel="stylesheet" href="{% static 'css/consultas.css' %}">
+    <title>Consultas de Citas</title>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            {% if logo %}
+                <a href="{% url 'inicioadm' %}">
+                    <img src="{{ logo }}" alt="Logo de la veterinaria" class="logo-header">
+                </a>
+            {% else %}
+                <a href="{% url 'inicioadm' %}">
+                    <img src="{% static 'img/default-logo.png' %}" alt="Logo de la veterinaria" class="logo-header">
+                </a>
+            {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'inicioadm' %}">Inicio</a></li>
+                    <li><a href="{% url 'gestionproductos' %}">Gestión Inventario</a></li>
+                    <li><a href="{% url 'consultas' %}">Consultas</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                </ul>
+            </nav>
+            <div class="auth-section">
+                {% if nombre_usuario %}
+                    <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main>
+        <div class="form-container">
+            <h1>Consultas de Citas</h1>
+            <!-- Citas Pendientes -->
+            <section>
+                <h2>Citas Pendientes</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Motivo</th>
+                            <th>Dueño</th>
+                            <th>Mascota</th>
+                            <th>Teléfono</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cita in citas_pendientes %}
+                        <tr>
+                            <td>{{ cita.fecha }}</td>
+                            <td>{{ cita.motivo }}</td>
+                            <td>{{ cita.cedula.nombre }}</td>
+                            <td>{{ cita.mascota.nombre }}</td>
+                            <td>{{ cita.nroTel }}</td>
+                            <td>
+                                <form action="{% url 'cambiar_estado_cita' cita.id_cita %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn">Marcar como Atendida</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Citas Atendidas -->
+            <section>
+                <h2>Citas Atendidas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Motivo</th>
+                            <th>Dueño</th>
+                            <th>Mascota</th>
+                            <th>Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cita in citas_atendidas %}
+                        <tr>
+                            <td>{{ cita.fecha }}</td>
+                            <td>{{ cita.motivo }}</td>
+                            <td>{{ cita.cedula.nombre }}</td>
+                            <td>{{ cita.mascota.nombre }}</td>
+                            <td>{{ cita.nroTel }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

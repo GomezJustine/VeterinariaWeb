@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/agenta_cita.css">
+    <title>Agendar Cita - Centro Veterinario JG Pet</title>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+                {% if logo %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{{ logo }}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% else %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{% static 'img/default-logo.png' %}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'iniciousuario' %}">Inicio</a></li>
+                    <li><a href="{% url 'listar_productos_cliente' %}">Productos</a></li>
+                    <li><a href="{% url 'agendar_cita' %}">Agendar cita</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                </ul>
+            </nav>
+
+            <div class="auth-section">
+                {% if nombre_usuario %}
+                    <!-- Mostrar nombre del usuario autenticado -->
+                    <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                {% else %}
+                    <!-- Mostrar botones de autenticación -->
+                    <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                    <a href="{% url 'register' %}" class="btn">Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Formulario de Agendar Cita -->
+    <main>
+        <div class="form-container">
+            <h1>Agendar Cita Veterinaria</h1>
+            <form id="appointmentForm" action="{% url 'agendar_cita' %}" method="POST">
+                {% csrf_token %}
+                <label for="appointmentDate">Día de la cita:</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" required>
+            
+                <label for="reason">Motivo de la cita:</label>
+                <textarea id="reason" name="reason" rows="4" placeholder="Describa el motivo de la cita..." required></textarea>
+            
+                <label for="ownerID">Cédula del dueño:</label>
+                {% if usuario_autenticado %}
+                    <!-- Mostrar la cédula del usuario autenticado -->
+                    <input type="text" id="ownerID" name="ownerID" value="{{ persona.cedula }}" readonly>
+                {% else %}
+                    <!-- Permitir ingresar la cédula si no está autenticado -->
+                    <input type="text" id="ownerID" name="ownerID" placeholder="Ingrese su cédula" required>
+                {% endif %}
+            
+                <label for="phoneNumber">Número telefónico:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" value="{{ cliente.nro_tel }}" placeholder="Ingrese el número telefónico">
+
+                <label for="petid">ID Mascota:</label>
+                <input type="text" id="petid" name="petid" value="{{ mascota.id_mascota }}" placeholder="Ingrese el ID de la mascota">
+
+                <label for="petName">Nombre de la mascota:</label>
+                <input type="text" id="petName" name="petName" value="{{ mascota.nombre }}" placeholder="Ingrese el nombre de la mascota">
+            
+                <label for="petAge">Edad de la mascota:</label>
+                <input type="text" id="petAge" name="petAge" value="{{ mascota.edad }}" placeholder="Ingrese la edad de la mascota">
+            
+                <label for="petWeight">Peso de la mascota (kg):</label>
+                <input type="number" id="petWeight" name="petWeight" value="{{ mascota.peso }}" step="0.01" placeholder="Ingrese el peso de la mascota">
+            
+                <label for="petSize">Tamaño de la mascota (cm):</label>
+                <input type="number" id="petSize" name="petSize" value="{{ mascota.tamaño }}" step="0.01" placeholder="Ingrese el tamaño de la mascota">
+            
+                <label for="petSpecies">Especie de la mascota:</label>
+                <input type="text" id="petSpecies" name="petSpecies" value="{{ mascota.especie }}" placeholder="Ingrese la especie de la mascota">
+            
+                <label for="petColor">Color de la mascota (Opcional):</label>
+                <input type="text" id="petColor" name="petColor" value="{{ mascota.color }}" placeholder="Ingrese el color de la mascota">
+            
+                <button type="submit">Agendar Cita</button>
+            </form>            
+        </div>
+    </main>
+
+    <!-- Marcador de éxito -->
+    {% if messages %}
+        {% for message in messages %}
+            <div id="mensajeExitoTrigger" data-message="{{ message }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <script src="{% static 'js/agenda_cita.js' %}"></script>
+</body>
+</html>

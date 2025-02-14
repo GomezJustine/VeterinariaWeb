@@ -1,0 +1,102 @@
+{% load base64_filters %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Centro Veterinario JG PET</title>
+    <link rel="stylesheet" href="../static/css/perfil.css">
+</head>
+<body>
+    <!-- Encabezado y Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+                {% if logo %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{{ logo }}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% else %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{% static 'img/default-logo.png' %}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% endif %}
+                <!-- Barra de navegación condicional -->
+                {% if rol == 'administrador' %}
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="{% url 'inicioadm' %}">Inicio</a></li>
+                        <li><a href="{% url 'gestionproductos' %}">Gestión Inventario</a></li>
+                        <li><a href="{% url 'ajustes' %}">Ajustes</a></li>
+                        <li><a href="#">Consultas</a></li>
+                        <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                    </ul>
+                </nav>
+                {% elif rol == 'cliente' %}
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="{% url 'iniciousuario' %}">Inicio</a></li>
+                        <li><a href="{% url 'listar_productos_cliente' %}">Productos</a></li>
+                        <li><a href="{% url 'agendar_cita' %}">Agendar cita</a></li>
+                        <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                    </ul>
+                </nav>
+                {% else %}
+                <p class="error-message">No tiene un rol asignado.</p>
+                {% endif %}
+
+                <!-- Sección de autenticación -->
+                <div class="auth-section">
+                    {% if nombre_usuario %}
+                        <!-- Mostrar nombre del usuario autenticado -->
+                        <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                        <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                    {% else %}
+                        <!-- Mostrar botones de autenticación -->
+                        <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                        <a href="{% url 'register' %}" class="btn">Registrarse</a>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+
+    <!-- Sección de Perfil -->
+    <main>
+        <div class="profile-container">
+            <h1>Perfil de Usuario</h1>
+
+            <!-- Mostrar Mensajes -->
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p class="message {{ message.tags }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Formulario -->
+            <form method="POST" action="{% url 'perfil' %}">
+                {% csrf_token %}
+                <label for="cedula">Cédula:</label>
+                <input type="text" id="cedula" name="cedula" value="{{ usuario.cedula }}" readonly>
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{ usuario.nombre }}" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ usuario.email }}" required>
+
+                <label for="nueva_contraseña">Nueva Contraseña:</label>
+                <input type="password" id="nueva_contraseña" name="nueva_contraseña" placeholder="Nueva Contraseña">
+
+                <label for="confirmar_contraseña">Confirmar Contraseña:</label>
+                <input type="password" id="confirmar_contraseña" name="confirmar_contraseña" placeholder="Confirmar Contraseña">
+
+                <button type="submit" class="save-button">Guardar Cambios</button>
+                <button type="button" class="cancel-button" onclick="window.location.reload();">Cancelar</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

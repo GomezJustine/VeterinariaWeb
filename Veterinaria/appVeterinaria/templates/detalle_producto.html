@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto - Centro Veterinario JG PET</title>
+    <link rel="stylesheet" href="{% static 'css/detalle_producto.css' %}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+</head>
+<body>
+    <!-- Encabezado y Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            <!-- Logo -->   
+            {% if logo %}
+                <img src="{{ logo }}" alt="Logo Centro Veterinario" class="logo">
+            {% else %}
+                <img src="{% static 'img/default-logo.png' %}" alt="Logo Centro Veterinario" class="logo">
+            {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'iniciousuario' %}">Inicio</a></li>
+                    <li><a href="{% url 'listar_productos_cliente' %}">Productos</a></li>
+                    <li><a href="{% url 'agendar_cita' %}">Agendar cita</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a>
+                </ul>
+            </nav>
+            <!-- Botones o mensaje de bienvenida -->
+            <div class="auth-section">
+                {% if nombre_usuario %}
+                    <!-- Mostrar nombre del usuario autenticado -->
+                    <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                {% else %}
+                    <!-- Mostrar botones de autenticación -->
+                    <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                    <a href="{% url 'register' %}" class="btn">Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Detalle del Producto -->
+    <div class="container my-5">
+        <h2>Detalle del Producto</h2>
+        <div class="row">
+            <!-- Mostrar la imagen del producto si existe -->
+            <div class="col-md-4">
+                {% if imagen_base64 %}
+                    <img src="data:image/jpeg;base64,{{ imagen_base64 }}" alt="{{ producto.nombre }}">
+                {% else %}
+                    <p>No hay imagen disponible</p>
+                {% endif %}
+            </div>
+    
+            <div class="col-md-8">
+                <h3>{{ producto.nombre }}</h3>
+                <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+                <p><strong>Precio:</strong> ${{ producto.vventa }}</p>
+                <p><strong>Stock disponible:</strong> {{ producto.stock }} unidades</p>
+    
+                <!-- detalle_producto.html -->
+                <form method="post" action="{% url 'formulario_pago' producto.id %}">
+                    {% csrf_token %}
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" name="cantidad" id="cantidad" value="1" min="1" max="{{ producto.stock }}" />
+                    <button type="submit">Comprar</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje de Compra Exitosa -->
+    {% if producto.stock == 0 %}
+        <div class="alert alert-success mt-3">
+            <h4>¡Compra Exitosa!</h4>
+            <p>Gracias por tu compra. Has adquirido el producto <strong>{{ producto.nombre }}</strong>.</p>
+            <p><strong>Precio total:</strong> ${{ producto.precio }}</p>
+            <p><strong>Stock restante:</strong> 0 unidades</p>
+        </div>
+    {% endif %}
+
+    <!-- Pie de Página -->
+    <footer>
+        <p>&copy; 2024 Mi Tienda. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

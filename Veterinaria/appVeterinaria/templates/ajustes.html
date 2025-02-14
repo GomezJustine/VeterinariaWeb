@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de la Empresa</title>
+    <link rel="stylesheet" href="../static/css/ajustes.css">
+</head>
+<body>
+    
+    <header>
+        <div class="nav-container">
+                {% if logo %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{{ logo }}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% else %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{% static 'img/default-logo.png' %}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'inicioadm' %}">Inicio</a></li>
+                    <li><a href="{% url 'gestionproductos' %}">Gestión Inventario</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                </ul>
+            </nav>
+
+            <div class="auth-section">
+                {% if nombre_usuario %}
+                    <!-- Mostrar nombre del usuario autenticado -->
+                    <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                {% else %}
+                    <!-- Mostrar botones de autenticación -->
+                    <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                    <a href="{% url 'register' %}" class="btn">Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h1>Ajustes de la Empresa</h1>
+            <form method="POST" action="{% url 'ajustes' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Nombre de la Veterinaria -->
+                <label for="nombre_empresa">Nombre de la Veterinaria:</label>
+                <input type="text" id="nombre_empresa" name="nombre_empresa" value="{{ configuracion.nombre_empresa }}" placeholder="Nombre de la veterinaria">
+
+                <!-- Dirección -->
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" value="{{ configuracion.direccion }}" placeholder="Dirección">
+
+                <!-- Teléfono -->
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" value="{{ configuracion.telefono }}" placeholder="Teléfono">
+
+                <!-- Email -->
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ configuracion.email }}" placeholder="Email">
+
+                <!-- Quienes Somos -->
+                <label for="descripcion">Quienes Somos:</label>
+                <textarea id="descripcion" name="descripcion" placeholder="Descripción">{{ configuracion.descripcion }}</textarea>
+
+                <!-- Objetivo -->
+                <label for="texto_footer">Objetivo:</label>
+                <textarea id="texto_footer" name="texto_footer" placeholder="Texto en el footer">{{ configuracion.texto_footer }}</textarea>
+
+                <!-- Logo Principal -->
+                <label for="logo">Logo Principal:</label>
+                <input type="file" id="logo" name="logo" accept="image/*">
+
+                <!-- Logo Secundario -->
+                <label for="logo1">Logo Secundario:</label>
+                <input type="file" id="logo1" name="logo1" accept="image/*">
+
+                <!-- Banners -->
+                <div class="banners-section">
+                    <label>Banners:</label>
+                    <button type="button" id="banners-button">Gestionar Banners</button>
+                </div>
+
+                <!-- Modal para banners -->
+                <div class="modal" id="gestionar-banners-modal">
+                    <div class="modal-content">
+                        <h2>Seleccionar Banner</h2>
+                        <ul>
+                            <li>
+                                <label for="banner">Banner Principal</label>
+                                <input type="file" id="banner" name="banner" accept="image/*">
+                            </li>
+                            <li>
+                                <label for="banner1">Banner 1</label>
+                                <input type="file" id="banner1" name="banner1" accept="image/*">
+                            </li>
+                            <li>
+                                <label for="banner2">Banner 2</label>
+                                <input type="file" id="banner2" name="banner2" accept="image/*">
+                            </li>
+                            <li>
+                                <label for="banner3">Banner 3</label>
+                                <input type="file" id="banner3" name="banner3" accept="image/*">
+                            </li>
+                            <li>
+                                <label for="banner4">Banner 4</label>
+                                <input type="file" id="banner4" name="banner4" accept="image/*">
+                            </li>
+                            <li>
+                                <label for="banner5">Banner 5</label>
+                                <input type="file" id="banner5" name="banner5" accept="image/*">
+                            </li>
+                        </ul>
+                        <!-- Botón de Salir -->
+                        <button type="button" class="close-modal-button" onclick="cerrarModal()">Salir</button>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <button type="submit" class="save-button">Guardar Cambios</button>
+                <button type="button" class="cancel-button" onclick="window.location.reload();">Cancelar</button>
+            </form>
+
+            {% if success %}
+                <p class="success-message">{{ success }}</p>
+            {% endif %}
+        </div>
+    </main>
+
+    <script src="{% static 'js/ajustes.js' %}"></script>
+</body>
+</html>

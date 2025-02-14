@@ -1,0 +1,316 @@
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('../img/banner.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #000;
+}
+
+/* Barra de Navegación Fija */
+header {
+    background-color: #003366;
+    padding: 15px 20px;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+header:hover {
+    background-color: #004080;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-header {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+/* Animación de oscilación para el logo */
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.nav-links a:hover {
+    color: #00bfff;
+    transform: scale(1.1);
+    text-shadow: 0 0 5px #00bfff;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons a {
+    color: #003366;
+    background-color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.auth-buttons a:hover {
+    background-color: #00bfff;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+}
+
+/* Contenedor del formulario de agregar producto */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 120px;
+    animation: fadeIn 0.7s ease-in-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-container {
+    background-color: #003366;
+    color: #fff;
+    padding: 40px 60px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    opacity: 0.95;
+    transform: scale(0.95);
+    animation: scaleUp 0.5s ease forwards;
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.95); }
+    to { transform: scale(1); }
+}
+
+.form-container h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #fff;
+    animation: fadeInTitle 1s ease forwards;
+}
+
+@keyframes fadeInTitle {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #a3d900;
+    font-size: 0.9em;
+}
+
+input, select, textarea {
+    width: 100%;  /* Asegura que todos los campos ocupen el 100% del ancho disponible */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+textarea {
+    min-height: 120px; /* Ajustamos la altura del textarea */
+    resize: vertical; /* Permite redimensionar solo en vertical */
+}
+
+input::placeholder {
+    color: #888;
+}
+
+input:focus, select:focus, textarea:focus {
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.7);  /* Efecto de brillo */
+    outline: none;
+    transform: scale(1.02); /* Aumento leve en el tamaño */
+}
+
+/* Estilo para la subida de archivos */
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    background-color: #00bfff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #007acc;
+    transform: scale(1.05);
+}
+
+.custom-file-upload input[type="file"] {
+    display: none; /* Ocultar el input de tipo archivo */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #00bfff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #007acc;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.5); /* Efecto de sombra luminosa */
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.auth-section {
+    text-align: right; /* Alinea al lado derecho */
+    margin-right: 20px; /* Espaciado con los bordes */
+}
+
+.welcome-message {
+    font-size: 1rem;
+    color: #fff; /* Ajusta el color según el diseño */
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+    background-color: #003366;
+    border-radius: 5px;
+}
+
+.logout-btn {
+    color: #003366; /* Texto blanco */
+    background-color: #ffffff;/* Fondo transparente */
+    padding: 6px 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: none; /* No forzar texto en mayúsculas */
+    font-size: 1.0rem; /* Texto más pequeño */
+    text-decoration: none; /* Quitar subrayado */
+    cursor: pointer; /* Cambiar cursor al pasar */
+    transition: all 0.3s ease; /* Transición para todos los cambios */
+}
+
+/* Efectos al pasar el cursor */
+.logout-btn:hover {
+    background-color: #00bfff; /* Fondo azul claro */
+    color: #ffffff; /* Texto blanco */
+    transform: scale(1.1); /* Aumentar tamaño ligeramente */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .form-container {
+        padding: 30px 20px;
+    }
+
+    .form-container h1 {
+        font-size: 1.5em;
+    }
+
+    button {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-header {
+        width: 50px;
+    }
+
+    .form-container {
+        padding: 20px 10px;
+    }
+
+    .form-container h1 {
+        font-size: 1.3em;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+}

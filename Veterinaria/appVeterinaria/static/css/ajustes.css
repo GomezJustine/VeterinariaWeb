@@ -1,0 +1,235 @@
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('../img/banner.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #000;
+    padding-top: 80px; /* Separación general para que el formulario no se superponga al header */
+
+}
+
+/* Header */
+header {
+    background-color: #003366;
+    padding: 15px 20px;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+header:hover {
+    background-color: #004080;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-header {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.nav-links a:hover {
+    color: #00bfff;
+    transform: scale(1.1);
+    text-shadow: 0 0 5px #00bfff;
+}
+
+.auth-buttons a {
+    color: #003366;
+    background-color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.auth-buttons a:hover {
+    background-color: #00bfff;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+}
+
+.auth-section {
+    text-align: right; /* Alinea al lado derecho */
+    margin-right: 20px; /* Espaciado con los bordes */
+}
+
+.welcome-message {
+    font-size: 1rem;
+    color: #fff; /* Ajusta el color según el diseño */
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+    background-color: #003366;
+    border-radius: 5px;
+}
+
+.logout-btn {
+    color: #003366; /* Texto blanco */
+    background-color: #ffffff;/* Fondo transparente */
+    padding: 6px 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: none; /* No forzar texto en mayúsculas */
+    font-size: 1.0rem; /* Texto más pequeño */
+    text-decoration: none; /* Quitar subrayado */
+    cursor: pointer; /* Cambiar cursor al pasar */
+    transition: all 0.3s ease; /* Transición para todos los cambios */
+}
+
+.logout-btn:hover {
+    background-color: #00bfff; /* Fondo azul claro */
+    color: #ffffff; /* Texto blanco */
+    transform: scale(1.1); /* Aumentar tamaño ligeramente */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Form container */
+.form-container {
+    max-width: 800px;
+    margin: 100px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+input, textarea, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    cursor: pointer;
+    background-color: #003366;
+    color: white;
+    border: none;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #003366;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.modal-content ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.modal-content ul li {
+    margin: 10px 0;
+}
+
+.modal-content .banner-button {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content .banner-button:hover {
+    background-color: #00bfff;
+}
+
+.close-modal-button {
+    background-color: #e63946;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-modal-button:hover {
+    background-color: #a83232;
+}
+

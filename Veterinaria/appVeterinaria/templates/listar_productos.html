@@ -1,0 +1,93 @@
+{% load static %}
+{% load base64_filters %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/administrador.css' %}">
+    <link rel="stylesheet" href="{% static 'css/listar_productos.css' %}">    
+    <title>Listado de Productos - Centro Veterinario JSJB</title>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            {% if logo %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{{ logo }}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% else %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{% static 'img/default-logo.png' %}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'inicioadm' %}">Inicio</a></li>
+                    <li><a href="{% url 'gestionproductos' %}">Gestión Inventario</a></li>
+                    <li><a href="{% url 'ajustes' %}">Ajustes</a></li>
+                    <li><a href="{% url 'consultas' %}">Consultas</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                </ul>
+            </nav>
+            <div class="auth-section">
+                {% if nombre_usuario %}
+                    <!-- Mostrar nombre del usuario autenticado -->
+                    <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                {% else %}
+                    <!-- Mostrar botones de autenticación -->
+                    <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                    <a href="{% url 'register' %}" class="btn">Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido del Listado de Productos -->
+    <main>
+        <div class="form-container">
+            <h1>Listado de Productos</h1>
+            <div class="table-container">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio Compra</th>
+                            <th>Precio Venta</th>
+                            <th>Stock</th>
+                            <th>Activo</th>
+                            <th>Categoría</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.descripcion }}</td>
+                            <td>${{ producto.vcompra }}</td>
+                            <td>${{ producto.vventa }}</td>
+                            <td>{{ producto.stock }}</td>
+                            <td>{% if producto.activo %} Sí {% else %} No {% endif %}</td>
+                            <td>{{ producto.idCategoria.descripcion }}</td>
+                            <td>
+                                {% if producto.imagen %}
+                                <img src="data:image/png;base64,{{ producto.imagen|b64encode }}" alt="{{ producto.nombre }}" class="product-image">
+                                {% else %}
+                                Sin imagen
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

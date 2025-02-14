@@ -1,0 +1,117 @@
+{% load base64_filters %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/editarproducto.css' %}">
+    <title>Editar Producto - Centro Veterinario JSJB</title>
+    <script src="{% static 'js/validaciones.js' %}" defer></script>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+                {% if logo %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{{ logo }}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% else %}
+                    <a href="{% url 'inicioadm' %}">
+                        <img src="{% static 'img/default-logo.png' %}" alt="Logo de la veterinaria" class="logo-header">
+                    </a>
+                {% endif %}
+
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="{% url 'inicioadm' %}">Inicio</a></li>
+                        <li><a href="{% url 'gestionproductos' %}">Gestión Inventario</a></li>
+                        <li><a href="{% url 'ajustes' %}">Ajustes</a></li>
+                        <li><a href="{% url 'consultas' %}">Consultas</a></li>
+                        <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                    </ul>
+                </nav>
+                            
+                <!-- Sección de autenticación -->
+                <div class="auth-section">
+                    {% if nombre_usuario %}
+                        <!-- Mostrar nombre del usuario autenticado -->
+                        <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                        <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                    {% else %}
+                        <!-- Mostrar botones de autenticación -->
+                        <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                        <a href="{% url 'register' %}" class="btn">Registrarse</a>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+
+        <!-- Formulario de Editar Producto -->
+        <main>
+            <div class="form-container">
+                <h1>Editar Producto</h1>
+                <!-- Mensajes de Error o Éxito -->
+                {% if error %}
+                    <p class="error-message">{{ error }}</p>
+                {% endif %}
+                {% if success %}
+                    <p class="success-message">{{ success }}</p>
+                {% endif %}
+                <form id="editProductForm" action="{% url 'editar_producto' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- ID del Producto -->
+                    <label for="productID">ID del Producto:</label>
+                    <input type="text" id="productID" name="productID" 
+                        placeholder="Ingrese el ID del producto" 
+                        value="{{ producto.id|default_if_none:'' }}">
+                    <button type="submit" name="buscarProducto">Buscar</button>
+
+                    <!-- Nombre del Producto -->
+                    <label for="productName">Nombre del Producto:</label>
+                    <input type="text" id="productName" name="productName" 
+                        placeholder="Nombre actual: {{ producto.nombre }}" 
+                        value="{{ producto.nombre|default_if_none:'' }}">
+
+                    <!-- Cantidad (Stock Adicional) -->
+                    <label for="productQuantity">Agregar Stock:</label>
+                    <input type="number" id="productQuantity" name="productQuantity" 
+                        placeholder="Cantidad adicional" min="0">
+
+                    <!-- Precio -->
+                    <label for="productPrice">Precio (COP):</label>
+                    <input type="number" id="productPrice" name="productPrice" 
+                        placeholder="Precio actual: ${{ producto.vventa }}" 
+                        value="{{ producto.vventa|default_if_none:'' }}" 
+                        min="100" step="100">
+                    
+                    <!-- Categoría -->
+                    <label for="productCategory">Categoría:</label>
+                    <select id="productCategory" name="productCategory">
+                        <option value="">Seleccione una categoría</option>
+                        {% for categoria in categorias %}
+                        <option value="{{ categoria.idCategoria }}" {% if producto and categoria == producto.idCategoria %}selected{% endif %}>
+                            {{ categoria.descripcion }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                    <!-- Descripción -->
+                    <label for="productDescription">Descripción:</label>
+                    <textarea id="productDescription" name="productDescription">{{ producto.descripcion|default_if_none:'' }}</textarea>
+
+                    <!-- Imagen -->
+                    <label for="productImage">Imagen del Producto:</label>
+                    <input type="file" id="productImage" name="productImage" accept="image/*">
+
+                    <button type="submit">Guardar Cambios</button>
+                </form>            
+            </div>
+        </main>
+
+        <!-- JavaScript -->
+        <script src="{% static 'js/editarproducto.js' %}"></script>
+</body>
+</html>

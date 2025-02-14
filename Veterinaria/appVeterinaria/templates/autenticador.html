@@ -1,0 +1,71 @@
+{% load base64_filters %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/autenticado.css' %}">
+    <title>Iniciar Sesión - Centro Veterinario JG PET</title>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            {% if logo %}
+                <img src="{{ logo }}" alt="Logo de la veterinaria" class="logo-header">
+            {% else %}
+                <img src="{% static 'img/default-logo.png' %}" alt="Logo Centro Veterinario JSJB" class="logo-header">
+            {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'iniciousuario' %}">Inicio</a></li>
+                    <li><a href="">Agendar citas</a></li>
+                    <li><a href="#">Nosotros</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="{% url 'register' %}" class="login-button">Registrarse</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor de inicio de sesión -->
+    <main>
+        <div class="form-container">
+            <!-- Logo pequeño dentro del formulario -->
+            {% if logo1 %}
+                <img src="{{ logo1 }}" alt="Logo del formulario" class="form-logo">
+            {% else %}
+                <img src="{% static 'img/default-logo.png' %}" alt="Logo Centro Veterinario JSJB" class="form-logo">
+            {% endif %}
+
+            <!-- Título del formulario -->
+            <h1>Iniciar Sesión</h1>
+           
+            <!-- Formulario -->
+            <form id="LoginForm" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required placeholder="Ingresa tu usuario">
+            
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
+                
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+    
+            <p id="error-message"></p>
+        </div>
+    </main>
+
+    <!-- Mensajes Django -->
+    <div id="messages-container">
+        {% for message in messages %}
+            <div class="popup-message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>    
+    <script src="{% static 'js/messageslogin.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% load static %}
+{% load base64_filters %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/administrador.css">
+    <title>Gestión de Productos - Centro Veterinario JSJB</title>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            {% if logo %}
+                <a href="{% url 'inicioadm' %}">
+                    <img src="data:image/png;base64,{{ logo }}" alt="Logo de la veterinaria" class="logo-header">
+                </a>
+            {% else %}
+                <a href="{% url 'inicioadm' %}">
+                    <img src="{% static 'img/default-logo.png' %}" alt="Logo de la veterinaria" class="logo-header">
+                </a>
+            {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'inicioadm' %}">Inicio</a></li>
+                    <li><a href="{% url 'gestionproductos' %}">Gestión Inventario</a></li>
+                    <li><a href="{% url 'ajustes' %}">Ajustes</a></li>
+                    <li><a href="{% url 'consultas' %}">Consultas</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                </ul>
+            </nav>
+            <div class="auth-section">
+                {% if nombre_usuario %}
+                    <!-- Mostrar nombre del usuario autenticado -->
+                    <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                {% else %}
+                    <!-- Mostrar botones de autenticación -->
+                    <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                    <a href="{% url 'register' %}" class="btn">Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido de Gestión de Productos -->
+    <main>
+        <div class="product-management-container">
+            <h1>Gestión de Productos</h1>
+            <p>Seleccione una acción para gestionar los productos de nuestro inventario.</p>
+
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <a href="{% url 'crear_producto' %}" class="button">Agregar Producto</a>
+                <a href="{% url 'editar_producto' %}" class="button">Editar Producto</a>
+                <a href="{% url 'desactivar_producto' %}" class="button">Desactivar Producto</a>
+                <a href="{% url 'listar_productos' %}" class="button">Listar Productos</a> <!-- Botón para Listar Productos -->
+            </div>
+        </div>
+    </main>
+</body>
+</html>

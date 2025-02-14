@@ -1,0 +1,79 @@
+{% load static %}
+{% load base64_filters %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Centro Veterinario JG PET</title>
+    <link rel="stylesheet" href="{% static 'css/productoscliente.css' %}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            {% if logo %}
+                <a href="{% url 'iniciousuario' %}">
+                    <img src="{{ logo }}" alt="Logo de la veterinaria" class="logo">
+                </a>
+            {% else %}
+                <a href="{% url 'inicio' %}">
+                    <img src="{% static 'img/default-logo.png' %}" alt="Logo de la veterinaria" class="logo">
+                </a>
+            {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'iniciousuario' %}">Inicio</a></li>
+                    <li><a href="{% url 'listar_productos_cliente' %}">Productos</a></li>
+                    <li><a href="{% url 'agendar_cita' %}">Agendar cita</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                </ul>
+            </nav>
+            <div class="auth-section">
+                {% if nombre_usuario %}
+                    <!-- Mostrar nombre del usuario autenticado -->
+                    <p class="welcome-message">Bienvenido, {{ nombre_usuario }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Cerrar Sesión</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn">Iniciar Sesión</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Filtro de Categorías -->
+    <section>
+        <h2>Filtrar por Categoría</h2>
+        <form method="get">
+            <select name="categoria" onchange="this.form.submit()">
+                <option value="">Seleccionar Categoría</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.idCategoria }}" {% if categoria.idCategoria == request.GET.categoria %}selected{% endif %}>
+                        {{ categoria.descripcion }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </section>
+
+    <!-- Listado de Productos -->
+    <main>
+        <h1>Productos Disponibles</h1>
+        <div class="product-list">
+            {% for producto in productos %}
+            <div class="product-item">
+                <h3>{{ producto.nombre }}</h3>
+                <p>{{ producto.descripcion }}</p>
+                <p><strong>Precio:</strong> ${{ producto.vventa }}</p>
+                <p><strong>Stock:</strong> {{ producto.stock }}</p>
+                <a href="{% url 'detalle_producto' producto.id %}" class="btn">Ver Detalles</a>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
+

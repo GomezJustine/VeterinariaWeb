@@ -1,0 +1,104 @@
+<!-- detalle_compra.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar {{ producto.nombre }} - Centro Veterinario JG PET</title>
+    <link rel="stylesheet" href="{% static 'css/iniciousuario.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detalle_producto.css' %}">
+</head>
+<body>
+
+    <!-- Encabezado y Barra de Navegación -->
+    <header>
+        <div class="nav-container">
+            <!-- Logo -->
+            {% if logo %}
+                <img src="data:image/png;base64,{{ logo }}" alt="Logo Centro Veterinario" class="logo">
+            {% else %}
+                <img src="{% static 'img/default-logo.png' %}" alt="Logo Centro Veterinario" class="logo">
+            {% endif %}
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'iniciousuario' %}">Inicio</a></li>
+                    <li><a href="{% url 'agendar_cita' %}">Agendar cita</a></li>
+                    <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<!-- Detalle de Producto -->
+<div class="container my-5">
+    <h2>Detalles del Producto</h2>
+    <p><strong>Producto:</strong> {{ producto.nombre }}</p>
+    <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+    <p><strong>Precio:</strong> ${{ producto.vventa }}</p>
+    
+    <!-- Formulario de Compra -->
+    <form method="POST" action="{% url 'detalle_compra' producto.id %}" id="payment-form">
+        {% csrf_token %}
+        
+        <!-- Cantidad -->
+        <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad:</label>
+            <input type="number" name="cantidad" id="cantidad" value="1" min="1" max="{{ producto.stock }}" class="form-control">
+        </div>
+        
+        <!-- Campo de la tarjeta -->
+        <div class="mb-3">
+            <label for="card-element" class="form-label">Detalles de pago</label>
+            <div id="card-element">
+                <!-- Aquí se renderiza el campo de la tarjeta -->
+            </div>
+            <div id="card-errors" role="alert"></div>
+        </div>
+
+        <!-- Botón de compra -->
+        <button type="submit" class="btn btn-success mt-3" id="submit">Comprar</button>
+    </form>
+</div>
+
+<!-- Cargar Stripe.js -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('pk_test_51QQYj0Co8EYMLFVfAI9csqMER41jHc3cQ8isfib12NcOYrhEiiaQlFXvt64GA2QEQvNDD62KLQ4DajayftovKIz600Jz7p4T2X');
+    var elements = stripe.elements();
+    var card = elements.create('card');
+    card.mount('#card-element');
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevenir envío normal del formulario
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                // Si hay un error con la tarjeta, se muestra un mensaje
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Crear un campo oculto con el token y agregarlo al formulario
+                var tokenInput = document.createElement('input');
+                tokenInput.setAttribute('type', 'hidden');
+                tokenInput.setAttribute('name', 'stripeToken');
+                tokenInput.setAttribute('value', result.token.id);  // ID del token generado por Stripe
+                form.appendChild(tokenInput);
+                
+                // Agregar la cantidad al formulario
+                var cantidadInput = document.createElement('input');
+                cantidadInput.setAttribute('type', 'hidden');
+                cantidadInput.setAttribute('name', 'cantidad');
+                cantidadInput.setAttribute('value', document.getElementById('cantidad').value);
+                form.appendChild(cantidadInput);
+
+                form.submit();  // Ahora enviamos el formulario con el token incluido
+            }
+        });
+    });
+</script>
+
+    
+</body>
+</html>
