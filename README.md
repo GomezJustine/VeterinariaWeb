@@ -24,8 +24,8 @@ Este proyecto fue desarrollado para gestionar de forma integral una clínica vet
 ## 📄 Documentación
 
 Para más detalles sobre la instalación, uso y funcionamiento del sistema, consulta los siguientes documentos:
-- [Manual de Programador](./Manuel_Programador_VeterinariaWeb.pdf) 
-- [Manual de Usuario](./Manuel_Usuario_Veterinaria.pdf) 
+- [Manual de Programador](docs/Manuel_Programador_VeterinariaWeb.pdf) 
+- [Manual de Usuario](docs/Manuel_Usuario_Veterinaria.pdf) 
 
 ## 👤 Autores
 **Justine Bravo Gómez y Juan Sebastián Alzate Gómez**
